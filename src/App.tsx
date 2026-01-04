@@ -257,7 +257,7 @@ function MusicPage() {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/qZ9yeZQC69c"
+                src="https://www.youtube.com/embed/GE8qPsk2mqs"
                 title="Avish - Featured Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
