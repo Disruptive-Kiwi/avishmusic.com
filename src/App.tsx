@@ -156,8 +156,8 @@ function HomePage() {
         {/* Dark overlay */}
         <div className="absolute inset-0 hero-overlay" />
 
-        {/* Mobile AVISH logo - centered at top */}
-        <div className="lg:hidden absolute top-6 left-0 right-0 z-10 flex justify-center">
+        {/* Mobile AVISH logo - centered at top, bottom-aligned with hamburger icon */}
+        <div className="lg:hidden absolute top-[27px] left-0 right-0 z-10 flex justify-center">
           <span className="font-display text-2xl font-bold tracking-wide text-white">
             AVISH
           </span>
@@ -171,7 +171,7 @@ function HomePage() {
 function AboutPage() {
   return (
     <PageWrapper>
-      <section className="pt-20 pb-16 lg:py-24 px-6 lg:px-12">
+      <section className="pt-24 pb-16 lg:py-24 px-6 lg:px-12">
         <div className="max-w-3xl animate-fade-in">
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="aspect-[3/4] bg-bg-card rounded-sm overflow-hidden card-hover">
@@ -239,7 +239,7 @@ function MusicPage() {
 
   return (
     <PageWrapper>
-      <section className="pt-20 pb-16 lg:py-24 px-6 lg:px-12">
+      <section className="pt-24 pb-16 lg:py-24 px-6 lg:px-12">
         <div className="max-w-3xl animate-fade-in">
           {/* Spotify Embed */}
           <div className="mb-16">
@@ -341,7 +341,7 @@ function MusicPage() {
 function LivePage() {
   return (
     <PageWrapper>
-      <section className="pt-20 pb-16 lg:py-24 px-6 lg:px-12">
+      <section className="pt-24 pb-16 lg:py-24 px-6 lg:px-12">
         <div className="max-w-3xl animate-fade-in">
           <p className="text-text-secondary text-lg mb-12">
             Experience Avish live - from intimate gatherings to audiences of 20,000+
@@ -428,7 +428,7 @@ function ContactPage() {
 
   return (
     <PageWrapper>
-      <section className="pt-20 pb-16 lg:py-24 px-6 lg:px-12">
+      <section className="pt-24 pb-16 lg:py-24 px-6 lg:px-12">
         <div className="max-w-xl animate-fade-in">
           <p className="text-text-secondary text-lg mb-2">
             Get in touch for bookings and inquiries
