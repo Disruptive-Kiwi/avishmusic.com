@@ -229,6 +229,14 @@ function AboutPage() {
 
 // MUSIC PAGE
 function MusicPage() {
+  const [email, setEmail] = useState('')
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault()
+    alert('Thank you for subscribing! (Mailing list integration coming soon)')
+    setEmail('')
+  }
+
   return (
     <PageWrapper>
       <section className="pt-20 pb-16 lg:py-24 px-6 lg:px-12">
@@ -298,6 +306,28 @@ function MusicPage() {
                 YouTube
               </a>
             </div>
+          </div>
+
+          {/* Compact Mailing List Signup */}
+          <div className="mt-16 p-6 md:p-8 bg-bg-card border border-border rounded-sm">
+            <p className="text-sm tracking-widest uppercase text-text-muted mb-2">New Releases</p>
+            <p className="text-white mb-6">Be the first to hear new music</p>
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="Email address"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 bg-bg-dark border border-border rounded-sm focus:outline-none focus:border-amber text-white placeholder-text-muted"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-amber text-white text-sm tracking-widest uppercase hover:bg-amber-light transition-all btn-glow whitespace-nowrap"
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
       </section>
