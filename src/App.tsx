@@ -55,12 +55,12 @@ function SideNavigation() {
         </Link>
 
         {/* Nav links */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 items-start">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm tracking-widest uppercase transition-colors ${
+              className={`text-sm tracking-widest uppercase transition-colors link-underline ${
                 location.pathname === link.path
                   ? 'text-amber'
                   : 'text-text-secondary hover:text-white'
