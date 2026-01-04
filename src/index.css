@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* Custom fonts - Bold, distinctive aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+/* Dark theme palette - dramatic, stage-inspired */
+:root {
+  --bg-dark: #0D0D0D;
+  --bg-card: #161616;
+  --bg-elevated: #1F1F1F;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A3A3A3;
+  --text-muted: #737373;
+  --amber: #C67B4E;
+  --amber-light: #D4956A;
+  --amber-dark: #A66440;
+  --sage: #7A9E8E;
+  --sage-dark: #5C7A6C;
+  --border: #2A2A2A;
+}
+
+@theme {
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --color-bg-dark: #0D0D0D;
+  --color-bg-card: #161616;
+  --color-bg-elevated: #1F1F1F;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A3A3A3;
+  --color-text-muted: #737373;
+  --color-amber: #C67B4E;
+  --color-amber-light: #D4956A;
+  --color-amber-dark: #A66440;
+  --color-sage: #7A9E8E;
+  --color-sage-dark: #5C7A6C;
+  --color-border: #2A2A2A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display font for headings and logo */
+.font-display {
+  font-family: 'Syne', sans-serif !important;
+}
+
+/* Subtle grain overlay for texture */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Elegant link underline animation */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Hero image with overlay */
+.hero-bg {
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, 0.4) 0%,
+    rgba(13, 13, 13, 0.6) 50%,
+    rgba(13, 13, 13, 0.95) 100%
+  );
+}
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Button hover glow effect */
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(198, 123, 78, 0.3);
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
