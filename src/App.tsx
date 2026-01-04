@@ -309,10 +309,11 @@ function MusicPage() {
           </div>
 
           {/* Compact Mailing List Signup */}
-          <div className="mt-16 p-6 md:p-8 bg-bg-card border border-border rounded-sm">
-            <p className="text-sm tracking-widest uppercase text-text-muted mb-2">New Releases</p>
-            <p className="text-white mb-6">Be the first to hear new music</p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+          <div className="mt-16">
+            <p className="text-sm tracking-widest uppercase text-text-muted mb-6">Stay Updated</p>
+            <div className="p-6 md:p-8 bg-bg-card border border-border rounded-sm">
+              <p className="text-white mb-6">Be the first to hear new music</p>
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
                 placeholder="Email address"
@@ -327,7 +328,8 @@ function MusicPage() {
               >
                 Subscribe
               </button>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </section>
