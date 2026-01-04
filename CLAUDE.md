@@ -17,7 +17,7 @@
 3. Don't assume - ask
 
 ### Before Building Big Features
-Web research the latest docs for our stack (React, Vite, Tailwind v4, etc). Don't assume training cutoff knowledge is current - APIs and best practices change.
+Web research the latest docs for our stack (React, Vite, Tailwind v4, Vercel etc). Don't assume training cutoff knowledge is current - APIs and best practices change.
 
 ### Grug Brain Principles
 - Simple > clever
