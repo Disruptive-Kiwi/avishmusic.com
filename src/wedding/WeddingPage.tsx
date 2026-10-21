@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import heroImage from '../assets/images/hero-live.jpg'
-import portrait from '../assets/images/avish-portrait.jpg'
+import heroImage from '../assets/images/wedding/hero-wedding.webp'
+import portrait from '../assets/images/wedding/portrait-kurta.webp'
+import galleryGuest from '../assets/images/wedding/gallery-guest.webp'
+import galleryCrowd from '../assets/images/wedding/gallery-crowd.webp'
+import galleryBride from '../assets/images/wedding/gallery-bride.webp'
+import gallerySing from '../assets/images/wedding/gallery-sing.webp'
+import gallerySmile from '../assets/images/wedding/gallery-smile.webp'
 import {
   CITY_SUGGESTIONS,
   EVENT_TYPES,
@@ -391,7 +396,7 @@ export function WeddingPage() {
   return (
     <div className="grain-overlay min-h-screen bg-bg-dark">
       {/* 1. Hero + form step 1 */}
-      <section ref={heroRef} className="relative min-h-[100svh] hero-bg" style={{ backgroundImage: `url(${heroImage})` }}>
+      <section ref={heroRef} className="relative min-h-[100svh] hero-bg" style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: '55% 20%' }}>
         <div className="absolute inset-0 bg-gradient-to-b from-bg-dark/70 via-bg-dark/80 to-bg-dark lg:bg-gradient-to-r lg:from-bg-dark/95 lg:via-bg-dark/60 lg:to-bg-dark/90" />
         <TopBar />
         <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
@@ -428,10 +433,35 @@ export function WeddingPage() {
         </div>
       </section>
 
+      {/* 2b. Real weddings */}
+      <section className="pb-16 lg:pb-24">
+        <div className="max-w-6xl mx-auto px-5 lg:px-12">
+          <SectionLabel>Real weddings</SectionLabel>
+          <h2 className="font-display text-3xl lg:text-4xl text-white mb-8">Where the dance floor fills up</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+            {[
+              [galleryGuest, 'Avish singing with a guest at a wedding'],
+              [galleryCrowd, 'Wedding guests dancing with hands up'],
+              [galleryBride, 'Bride dancing during Avish’s set'],
+              [gallerySing, 'Avish performing at a wedding'],
+              [gallerySmile, 'Avish smiling mid-song'],
+            ].map(([src, alt], i) => (
+              <img
+                key={src}
+                src={src}
+                alt={alt}
+                loading="lazy"
+                className={`w-full h-full object-cover rounded-sm ${i === 0 ? 'col-span-2 md:row-span-2 aspect-[16/10] md:aspect-auto' : 'aspect-[16/10]'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3. Artist intro */}
       <section className="py-16 lg:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-5 lg:px-12 grid md:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-center">
-          <img src={portrait} alt="Avish, live Bollywood singer" loading="lazy" className="w-full max-w-sm aspect-[3/4] object-cover rounded-sm" />
+          <img src={portrait} alt="Avish, live Bollywood singer" loading="lazy" className="w-full max-w-sm aspect-[3/4] object-cover object-top rounded-sm" />
           <div>
             <SectionLabel>Meet Avish</SectionLabel>
             <h2 className="font-display text-3xl lg:text-4xl text-white mb-6">From international stages to your sangeet</h2>
