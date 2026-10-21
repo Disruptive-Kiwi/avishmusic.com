@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './index.css'
 import avishPortrait from './assets/images/avish-portrait.jpg'
 import heroImage from './assets/images/hero-live.jpg'
+import { PrivacyPage, WeddingPage, WeddingThankYouPage } from './wedding/WeddingPage'
 
 // Social links data
 const socials = {
@@ -512,6 +513,9 @@ function App() {
         <Route path="/live" element={<LivePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/wedding" element={<WeddingPage />} />
+        <Route path="/wedding/thank-you" element={<WeddingThankYouPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
       </Routes>
     </BrowserRouter>
   )
