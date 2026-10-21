@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import heroImage from '../assets/images/hero-live.jpg'
 import portrait from '../assets/images/avish-portrait.jpg'
 import {
-  BUDGET_OPTIONS,
   CITY_SUGGESTIONS,
   EVENT_TYPES,
   REELS,
@@ -58,7 +57,6 @@ type FormState = {
   city: string
   eventTypes: string[]
   setFormat: string
-  budget: string
   name: string
   phone: string
   email: string
@@ -73,7 +71,6 @@ const emptyForm: FormState = {
   city: '',
   eventTypes: [],
   setFormat: '',
-  budget: '',
   name: '',
   phone: '',
   email: '',
@@ -126,7 +123,6 @@ function EnquiryForm() {
         city: form.city,
         event_types: form.eventTypes.join(', '),
         set_format: form.setFormat,
-        budget: form.budget,
         notes: form.notes,
       })
     } catch {
@@ -138,7 +134,6 @@ function EnquiryForm() {
     track('generate_lead', {
       lead_city: form.city,
       lead_event_types: form.eventTypes.join(', '),
-      lead_budget: form.budget,
       lead_set_format: form.setFormat,
       user_data: { phone_number: phone, ...(form.email && { email: form.email.trim().toLowerCase() }) },
     })
@@ -229,21 +224,13 @@ function EnquiryForm() {
               })}
             </div>
           </fieldset>
-          <div className="grid sm:grid-cols-2 gap-5">
-            <div>
-              <label htmlFor="setFormat" className={labelClass}>Performance setup</label>
-              <select id="setFormat" required value={form.setFormat} onChange={(e) => set('setFormat', e.target.value)} className={inputClass}>
-                <option value="" disabled>Choose one</option>
-                {SET_FORMATS.map((s) => <option key={s}>{s}</option>)}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="budget" className={labelClass}>Budget for music</label>
-              <select id="budget" required value={form.budget} onChange={(e) => set('budget', e.target.value)} className={inputClass}>
-                <option value="" disabled>Choose a range</option>
-                {BUDGET_OPTIONS.map((b) => <option key={b}>{b}</option>)}
-              </select>
-            </div>
+          <div>
+            <label htmlFor="setFormat" className={labelClass}>Performance setup</label>
+            <select id="setFormat" required value={form.setFormat} onChange={(e) => set('setFormat', e.target.value)} className={inputClass}>
+              <option value="" disabled>Choose one</option>
+              {SET_FORMATS.map((s) => <option key={s.name}>{s.name}</option>)}
+              <option>Not sure yet, suggest one</option>
+            </select>
           </div>
           <div className="grid sm:grid-cols-2 gap-5">
             <div>
@@ -478,6 +465,22 @@ export function WeddingPage() {
         </div>
       </section>
 
+      {/* 4b. Setups */}
+      <section className="py-16 lg:py-24 border-t border-border">
+        <div className="max-w-6xl mx-auto px-5 lg:px-12">
+          <SectionLabel>Pick your setup</SectionLabel>
+          <h2 className="font-display text-3xl lg:text-4xl text-white mb-10">From acoustic to full production</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {SET_FORMATS.map((s, i) => (
+              <div key={s.name} className={`p-6 lg:p-8 border rounded-sm ${i === 2 ? 'border-amber bg-amber/5' : 'border-border'}`}>
+                <p className="font-display text-xl text-white mb-3">{s.name}</p>
+                <p className="text-sm text-text-muted leading-relaxed">{s.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 5. Testimonials */}
       {TESTIMONIALS.length > 0 && (
         <section className="py-16 lg:py-24 border-t border-border">
@@ -622,7 +625,7 @@ export function PrivacyPage() {
         <h1 className="font-display text-3xl text-white pt-6">Privacy policy</h1>
         <p>
           When you send an enquiry on this website we collect the details you enter (name, WhatsApp number, email,
-          event date, location, event type, budget and notes). We use them only to reply to your enquiry and to plan
+          event date, location, event type, performance setup and notes). We use them only to reply to your enquiry and to plan
           your event. We don’t sell or share them with anyone else.
         </p>
         <p>

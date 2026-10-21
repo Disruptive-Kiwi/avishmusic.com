@@ -10,26 +10,19 @@ export const LEADS_ENDPOINT = '' // TODO
 
 // WhatsApp number in international format, digits only, e.g. '919876543210'.
 // Empty = WhatsApp buttons are hidden.
-export const WHATSAPP_NUMBER = '' // TODO
+export const WHATSAPP_NUMBER = '918160717703'
 
 // Promise shown under the form and on the thank-you page.
 export const REPLY_TIME = 'within 24 hours' // TODO confirm
-
-// Budget brackets. The first one should start at the minimum fee so smaller budgets filter themselves out.
-export const BUDGET_OPTIONS = [
-  '₹1 – 2 lakh', // TODO replace with real brackets
-  '₹2 – 4 lakh',
-  '₹4 lakh +',
-]
 
 export const EVENT_TYPES = ['Wedding', 'Sangeet', 'Reception', 'Cocktail', 'Mehendi / Haldi', 'Other']
 
 // "Expected performance requirements" from the brief.
 export const SET_FORMATS = [
-  'Acoustic (Avish + 1–2 musicians)',
-  'Full live band',
-  'Not sure yet, suggest one',
-] // TODO confirm the formats Avish offers
+  { name: 'Solo acoustic set', detail: 'Just Avish, live and up close. Ideal for cocktails, mehendi and smaller functions.' },
+  { name: 'Small band (3-piece)', detail: 'Live vocals with two musicians. A fuller sound that still fits any venue.' },
+  { name: 'Full band production (8–10 piece)', detail: 'The complete show for your sangeet or reception, built to fill a big dance floor.' },
+]
 
 export const CITY_SUGGESTIONS = [
   'Mumbai',
