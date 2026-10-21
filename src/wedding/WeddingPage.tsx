@@ -336,7 +336,6 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const faqs = [
-  // TODO client to confirm every answer
   {
     q: 'Do you travel for destination weddings?',
     a: 'Yes. Avish is based between Mumbai and Ahmedabad and performs across India, including Rajasthan. Travel and stay are included in your quote.',
@@ -350,8 +349,24 @@ const faqs = [
     a: 'Tell us your venue and we’ll confirm what’s needed. We can work with your venue’s or planner’s sound team, or arrange it.',
   },
   {
+    q: 'Which setup is right for our event?',
+    a: 'Solo acoustic suits cocktails, mehendi and smaller functions. The 3-piece band gives a fuller sound for mid-size events. Full band production (8–10 piece) is built for a big sangeet or reception. Not sure? Choose “Not sure yet” in the form and we’ll suggest one.',
+  },
+  {
+    q: 'How long do you perform?',
+    a: 'Set length is planned around your function and its timings. Tell us your schedule and we’ll confirm it in your quote.',
+  },
+  {
+    q: 'Do you perform at events other than weddings?',
+    a: 'Yes, including corporate events, private parties, festivals and cultural events. Mention it in the form’s notes.',
+  },
+  {
     q: 'How far ahead should we book?',
     a: 'Peak wedding dates go first, so enquire as soon as your date is fixed. If your date isn’t fixed yet, share the month and we’ll hold options.',
+  },
+  {
+    q: 'How do we confirm the booking?',
+    a: 'We send availability and a quote on WhatsApp. Your date is locked once the advance is paid, and then we plan the set list with you.',
   },
 ]
 
