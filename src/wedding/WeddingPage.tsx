@@ -147,15 +147,32 @@ function EnquiryForm() {
 
   return (
     <div id="enquire" className="bg-bg-card/90 backdrop-blur border border-border rounded-sm p-5 sm:p-8 scroll-mt-6">
-      <div className="flex items-center justify-between mb-4 sm:mb-6">
-        <p className="font-display text-lg text-white">Check your date</p>
-        <p className="text-xs tracking-widest uppercase text-text-muted">Step {step} of 2</p>
+      <div className="mb-4 sm:mb-6">
+        <div className="flex items-start justify-between gap-4">
+          <p className="font-display text-base sm:text-lg leading-snug text-white">Check availability for your event</p>
+          <p className="shrink-0 pt-0.5 text-[11px] tracking-widest uppercase text-text-muted">{step}/2</p>
+        </div>
+        {WHATSAPP_NUMBER && (
+          <p className="mt-1 text-sm text-text-muted">
+            Or{' '}
+            <a
+              href={whatsappLink('Hi Avish, I’d like to check availability for my wedding.')}
+              onClick={() => track('whatsapp_click', { location: 'form' })}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber hover:text-amber-light underline underline-offset-2"
+            >
+              WhatsApp us
+            </a>{' '}
+            for an immediate reply
+          </p>
+        )}
       </div>
 
       {step === 1 ? (
         <form onSubmit={goToStep2} className="space-y-4 sm:space-y-5">
           <div>
-            <label htmlFor="eventDate" className={labelClass}>Wedding / event date</label>
+            <label htmlFor="eventDate" className={labelClass}>Event date</label>
             {form.dateNotFixed ? (
               <input
                 id="eventDate"
@@ -188,7 +205,7 @@ function EnquiryForm() {
             </label>
           </div>
           <div>
-            <label htmlFor="city" className={labelClass}>City / venue</label>
+            <label htmlFor="city" className={labelClass}>Event city / venue</label>
             <input
               id="city"
               type="text"
@@ -244,17 +261,20 @@ function EnquiryForm() {
             </div>
             <div>
               <label htmlFor="phone" className={labelClass}>WhatsApp number</label>
-              <input
+              <div className="relative">
+                <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary">+91</span>
+                <input
                 id="phone"
                 type="tel"
                 required
                 autoComplete="tel"
                 inputMode="tel"
-                placeholder="+91"
+                placeholder="Phone number"
                 value={form.phone}
                 onChange={(e) => set('phone', e.target.value)}
-                className={inputClass}
+                className={`${inputClass} pl-14`}
               />
+              </div>
             </div>
           </div>
           <div>
@@ -262,7 +282,7 @@ function EnquiryForm() {
             <input id="email" type="email" autoComplete="email" value={form.email} onChange={(e) => set('email', e.target.value)} className={inputClass} />
           </div>
           <div>
-            <label htmlFor="notes" className={labelClass}>Anything else? <span className="normal-case tracking-normal text-text-muted">(optional)</span></label>
+            <label htmlFor="notes" className={labelClass}>Additional requests <span className="normal-case tracking-normal text-text-muted">(optional)</span></label>
             <textarea
               id="notes"
               rows={2}
@@ -284,7 +304,7 @@ function EnquiryForm() {
           />
           {error && <p className="text-sm text-amber-light" role="alert">{error}</p>}
           <button type="submit" disabled={sending} className={buttonClass}>
-            {sending ? 'Sending…' : 'Get availability & quote'}
+            {sending ? 'Sending…' : 'Request a live quote'}
           </button>
           <button type="button" onClick={() => setStep(1)} className="w-full text-xs tracking-widest uppercase text-text-muted hover:text-white">
             ← Back
@@ -399,16 +419,16 @@ export function WeddingPage() {
       <section ref={heroRef} className="relative min-h-[100svh] hero-bg" style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: '55% 20%' }}>
         <div className="absolute inset-0 bg-gradient-to-b from-bg-dark/70 via-bg-dark/80 to-bg-dark lg:bg-gradient-to-r lg:from-bg-dark/95 lg:via-bg-dark/60 lg:to-bg-dark/90" />
         <TopBar />
-        <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 [@media(max-height:620px)]:pt-16 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
           <div className="animate-fade-in">
-            <p className="text-[11px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-amber mb-3 sm:mb-5">Now taking wedding dates in India</p>
-            <h1 className="font-display text-[2rem] sm:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
+            <p className="[@media(max-height:620px)]:hidden text-[11px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-amber mb-3 sm:mb-5">Now taking wedding dates in India</p>
+            <h1 className="font-display text-[2rem] max-[360px]:text-[1.75rem] sm:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
               Live Bollywood <br className="hidden sm:block" />singer for your <span className="text-amber">wedding</span>
             </h1>
             <p className="hidden sm:block mt-5 text-lg text-text-secondary max-w-md">
               Sangeet, wedding and reception sets with real live vocals. Not a playlist.
             </p>
-            <ul className="mt-4 sm:mt-6 flex flex-wrap gap-x-4 sm:gap-x-5 gap-y-1 text-sm text-white/90">
+            <ul className="[@media(max-height:620px)]:hidden max-[360px]:hidden mt-4 sm:mt-6 flex flex-wrap gap-x-4 sm:gap-x-5 gap-y-1 text-sm text-white/90">
               <li><span className="text-amber font-semibold">100+</span> live shows</li>
               <li><span className="text-amber font-semibold">4</span> continents</li>
               <li><span className="text-amber font-semibold">7M+</span> views</li>
