@@ -2,7 +2,7 @@
 // Values marked TODO must be filled in before the page goes live with ads.
 
 // Google Tag Manager container ID, e.g. 'GTM-ABC1234'. Empty = no tracking loaded.
-export const GTM_ID = '' // TODO
+export const GTM_ID = 'GTM-T43TV34P'
 
 // Google Apps Script web app URL that writes leads to the Google Sheet.
 // Empty = form submits are only logged in the browser console (for testing).
