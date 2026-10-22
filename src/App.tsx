@@ -4,6 +4,7 @@ import './index.css'
 import avishPortrait from './assets/images/avish-portrait.jpg'
 import heroImage from './assets/images/hero-live.jpg'
 import { PrivacyPage, WeddingPage, WeddingThankYouPage } from './wedding/WeddingPage'
+import { sendLead, track } from './wedding/tracking'
 
 // Social links data
 const socials = {
@@ -22,6 +23,11 @@ const navLinks = [
   { path: '/about', label: 'About' },
   { path: '/contact', label: 'Contact' },
 ]
+
+// Booking enquiries all go to the quote form on the wedding landing page
+const quotePath = '/wedding'
+const quoteButtonClass =
+  'inline-block bg-amber text-white tracking-widest uppercase hover:bg-amber-light transition-all btn-glow'
 
 // Left Side Navigation component
 function SideNavigation() {
@@ -71,6 +77,14 @@ function SideNavigation() {
             </Link>
           ))}
 
+          <Link
+            to={quotePath}
+            onClick={() => track('cta_click', { location: 'nav_desktop' })}
+            className={`${quoteButtonClass} mt-2 px-4 py-3 text-xs text-center leading-relaxed`}
+          >
+            Request a live quote
+          </Link>
+
           {/* Social icons - horizontal row below nav */}
           <div className="flex gap-4 mt-2">
             <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-amber transition-colors" aria-label="Instagram">
@@ -114,6 +128,16 @@ function SideNavigation() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              to={quotePath}
+              onClick={() => {
+                setIsOpen(false)
+                track('cta_click', { location: 'nav_mobile' })
+              }}
+              className={`${quoteButtonClass} px-8 py-4 text-sm`}
+            >
+              Request a live quote
+            </Link>
           </div>
 
           {/* Social icons */}
@@ -162,6 +186,19 @@ function HomePage() {
           <span className="font-display text-2xl font-bold tracking-wide text-white">
             AVISH
           </span>
+        </div>
+
+        {/* Booking call to action */}
+        <div className="absolute inset-x-0 bottom-0 z-10 px-6 pb-14 lg:pb-20 flex flex-col items-center text-center animate-fade-in">
+          <p className="text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.3em] uppercase text-amber mb-3">Now taking wedding &amp; event dates in India</p>
+          <p className="font-display text-2xl md:text-4xl text-white mb-6">Live Bollywood for your celebration</p>
+          <Link
+            to={quotePath}
+            onClick={() => track('cta_click', { location: 'home_hero' })}
+            className={`${quoteButtonClass} px-8 py-4 text-sm`}
+          >
+            Request a live quote
+          </Link>
         </div>
       </section>
     </PageWrapper>
@@ -398,11 +435,16 @@ function LivePage() {
             <p className="font-display text-2xl md:text-3xl text-white mb-4">Book Avish for Your Event</p>
             <p className="text-text-muted mb-8">Bollywood &amp; Indie music for any occasion</p>
             <Link
-              to="/contact"
-              className="inline-block px-8 py-4 bg-amber text-white text-sm tracking-widest uppercase hover:bg-amber-light transition-all btn-glow"
+              to={quotePath}
+              onClick={() => track('cta_click', { location: 'live_page' })}
+              className={`${quoteButtonClass} px-8 py-4 text-sm`}
             >
-              Get in Touch
+              Request a live quote
             </Link>
+            <p className="mt-6 text-sm text-text-muted">
+              Press, collaborations or other questions?{' '}
+              <Link to="/contact" className="text-amber hover:text-amber-light transition-colors">Contact us</Link>
+            </p>
           </div>
         </div>
       </section>
@@ -419,12 +461,24 @@ function ContactPage() {
     message: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+
+  // Saves to the same leads Sheet as the wedding form (page = /contact) instead of opening an email app.
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const mailtoLink = `mailto:${socials.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-    )}`
-    window.location.href = mailtoLink
+    setStatus('sending')
+    try {
+      await sendLead({
+        name: formData.name,
+        email: formData.email,
+        event_types: 'General enquiry',
+        notes: `Subject: ${formData.subject}\n\n${formData.message}`,
+      })
+      track('contact_submit')
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -446,6 +500,23 @@ function ContactPage() {
             </a>
             {' '}for a quicker response
           </p>
+
+          <div className="mb-10 p-5 border border-amber/40 bg-amber/5 rounded-sm">
+            <p className="text-white mb-3">Booking Avish for a wedding or event?</p>
+            <Link
+              to={quotePath}
+              onClick={() => track('cta_click', { location: 'contact_page' })}
+              className={`${quoteButtonClass} px-6 py-3 text-xs`}
+            >
+              Request a live quote
+            </Link>
+          </div>
+
+          {status === 'sent' ? (
+            <p className="text-white text-lg" role="status">
+              Thanks, {formData.name.split(' ')[0]}! Your message has been sent. We’ll get back to you soon.
+            </p>
+          ) : (
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
@@ -490,13 +561,18 @@ function ContactPage() {
                 className="w-full px-4 py-3 bg-bg-card border border-border rounded-sm focus:outline-none focus:border-amber text-white placeholder-text-muted resize-none"
               />
             </div>
+            {status === 'error' && (
+              <p className="text-sm text-amber-light" role="alert">Couldn’t send. Please check your connection and try again.</p>
+            )}
             <button
               type="submit"
-              className="w-full px-8 py-4 bg-amber text-white text-sm tracking-widest uppercase hover:bg-amber-light transition-all btn-glow"
+              disabled={status === 'sending'}
+              className="w-full px-8 py-4 bg-amber text-white text-sm tracking-widest uppercase hover:bg-amber-light transition-all btn-glow disabled:opacity-60"
             >
-              Send Message
+              {status === 'sending' ? 'Sending…' : 'Send Message'}
             </button>
           </form>
+          )}
         </div>
       </section>
     </PageWrapper>

@@ -35,3 +35,9 @@ Key rules:
 - Dominant colors + sharp accents
 - NEVER purple gradients on white
 
+
+## Wedding landing page (ads)
+- `/wedding` (+ `/wedding/thank-you`, `/privacy`) lives in `src/wedding/`. Settings in `src/wedding/config.ts` (GTM_ID, LEADS_ENDPOINT, WhatsApp, setups, reels).
+- Leads → Google Sheet via Apps Script (`LEADS_ENDPOINT`). `/contact` form posts to the same Sheet (page=/contact).
+- All "Request a live quote" CTAs (home hero, side nav, mobile menu, /live, /contact) → `/wedding`.
+- dataLayer events: generate_lead (main conversion), lead_form_step1, cta_click, whatsapp_click, video_play, contact_submit.
