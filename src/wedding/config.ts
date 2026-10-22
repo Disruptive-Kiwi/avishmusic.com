@@ -6,7 +6,7 @@ export const GTM_ID = '' // TODO
 
 // Google Apps Script web app URL that writes leads to the Google Sheet.
 // Empty = form submits are only logged in the browser console (for testing).
-export const LEADS_ENDPOINT = '' // TODO
+export const LEADS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxqrPhVpyE5IgUCyp5TY-6Y3LYlHSFpdTZ5iSc21xChqeoJUKirFonxkVCg8M7ZT1ruwA/exec'
 
 // WhatsApp number in international format, digits only, e.g. '919876543210'.
 // Empty = WhatsApp buttons are hidden.
