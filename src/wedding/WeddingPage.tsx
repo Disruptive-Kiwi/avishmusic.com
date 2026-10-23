@@ -149,7 +149,7 @@ function EnquiryForm() {
     <div id="enquire" className="bg-bg-card/90 backdrop-blur border border-border rounded-sm p-5 sm:p-8 scroll-mt-6">
       <div className="mb-4 sm:mb-6">
         <div className="flex items-start justify-between gap-4">
-          <p className="font-display text-base sm:text-lg leading-snug text-white">Check availability for your event</p>
+          <p className="font-semibold tracking-tight text-base sm:text-lg leading-snug text-white">Check availability for your event</p>
           <p className="shrink-0 pt-0.5 text-[11px] tracking-widest uppercase text-text-muted">{step}/2</p>
         </div>
         {WHATSAPP_NUMBER && (
@@ -339,8 +339,11 @@ function Reel({ id, title }: { id: string; title: string }) {
           aria-label={`Play ${title}`}
         >
           <img
-            src={`https://i.ytimg.com/vi/${id}/oardefault.jpg`}
-            onError={(e) => { e.currentTarget.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg` }}
+            src={`https://i.ytimg.com/vi/${id}/oar2.jpg`}
+            onError={(e) => {
+              const fallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+              if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback
+            }}
             alt=""
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
@@ -349,7 +352,7 @@ function Reel({ id, title }: { id: string; title: string }) {
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-amber/90 flex items-center justify-center group-hover:scale-110 transition-transform">
             <svg className="w-6 h-6 ml-1 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
           </span>
-          <span className="absolute bottom-4 left-4 right-4 text-left font-display text-white">{title}</span>
+          <span className="absolute bottom-4 left-4 right-4 text-left font-semibold tracking-tight text-white">{title}</span>
         </button>
       )}
     </div>
@@ -360,10 +363,10 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return <p className="text-xs tracking-[0.3em] uppercase text-amber mb-4">{children}</p>
 }
 
-const faqs = [
+const faqs: { q: string; a: React.ReactNode }[] = [
   {
     q: 'Do you travel for destination weddings?',
-    a: 'Yes. Avish is based between Mumbai and Ahmedabad and performs across India, including Rajasthan. Travel and stay are included in your quote.',
+    a: 'Yes! Avish is based between Mumbai and Ahmedabad and performs across India and internationally. As a New Zealand passport holder, Avish can travel to most destinations with ease.',
   },
   {
     q: 'What kind of songs do you play?',
@@ -371,15 +374,24 @@ const faqs = [
   },
   {
     q: 'Do you bring sound and lights?',
-    a: 'Tell us your venue and we’ll confirm what’s needed. We can work with your venue’s or planner’s sound team, or arrange it.',
+    a: 'Our quote covers the performance. Sound and lighting are a separate vendor cost, which depends on your venue and setup. We work with trusted vendors across India and can arrange a complete package for you, or coordinate with your own planner or venue team.',
   },
   {
     q: 'Which setup is right for our event?',
-    a: 'Solo acoustic suits cocktails, mehendi and smaller functions. The 3-piece band gives a fuller sound for mid-size events. Full band production (8–10 piece) is built for a big sangeet or reception. Not sure? Choose “Not sure yet” in the form and we’ll suggest one.',
+    a: (
+      <>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>Solo acoustic: cocktails, mehendi and intimate functions (up to ~50 guests)</li>
+          <li>3-piece band: a fuller sound for small to mid-size events (up to ~100 guests)</li>
+          <li>Full band: built for big, high-energy sangeets and receptions (100+ guests)</li>
+        </ul>
+        <p className="mt-3">Not sure? Choose “Not sure yet” in the form and we’ll help you decide.</p>
+      </>
+    ),
   },
   {
     q: 'How long do you perform?',
-    a: 'Set length is planned around your function and its timings. Tell us your schedule and we’ll confirm it in your quote.',
+    a: 'A full set is around 120 minutes, and we can tailor it to your schedule (for example 2 x 60 minutes, or a shorter set for cocktails). We usually get the crowd on the dance floor, so the party often runs longer than planned!',
   },
   {
     q: 'Do you perform at events other than weddings?',
@@ -387,7 +399,7 @@ const faqs = [
   },
   {
     q: 'How far ahead should we book?',
-    a: 'Peak wedding dates go first, so enquire as soon as your date is fixed. If your date isn’t fixed yet, share the month and we’ll hold options.',
+    a: 'Peak dates (November to March) go first, so enquire as soon as your date is fixed. Destination weddings are best booked 6+ months ahead. If your date isn’t fixed yet, share the month and we’ll check availability.',
   },
   {
     q: 'How do we confirm the booking?',
@@ -398,6 +410,7 @@ const faqs = [
 export function WeddingPage() {
   usePageTitle('Avish Live | Live Bollywood Singer for Weddings & Sangeet')
   const heroRef = useRef<HTMLElement>(null)
+  const reelsRef = useRef<HTMLDivElement>(null)
   const [showSticky, setShowSticky] = useState(false)
 
   useEffect(() => {
@@ -422,7 +435,7 @@ export function WeddingPage() {
         <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 [@media(max-height:620px)]:pt-16 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
           <div className="animate-fade-in">
             <p className="[@media(max-height:620px)]:hidden text-[11px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-amber mb-3 sm:mb-5">Now taking wedding dates in India</p>
-            <h1 className="font-display text-[2rem] max-[360px]:text-[1.75rem] sm:text-5xl lg:text-6xl font-bold leading-[1.05] text-white">
+            <h1 className="tracking-tight text-[2rem] max-[360px]:text-[1.75rem] sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-white">
               Live Bollywood <br className="hidden sm:block" />singer for your <span className="text-amber">wedding</span>
             </h1>
             <p className="hidden sm:block mt-5 text-lg text-text-secondary max-w-md">
@@ -434,7 +447,7 @@ export function WeddingPage() {
               <li><span className="text-amber font-semibold">7M+</span> views</li>
               <li className="hidden sm:list-item">Featured in Rolling Stone India</li>
             </ul>
-            <p className="hidden sm:block mt-4 text-sm text-text-muted">Mumbai · Ahmedabad · Rajasthan · Delhi NCR · destination weddings</p>
+            <p className="[@media(max-height:620px)]:hidden max-[360px]:hidden mt-3 sm:mt-4 text-xs sm:text-sm text-text-muted">Destination weddings · Concerts · Private events · Corporate events · College cultural festivals · Community events</p>
           </div>
           <div className="animate-fade-in [animation-delay:150ms] opacity-0">
             <EnquiryForm />
@@ -446,9 +459,28 @@ export function WeddingPage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-5 lg:px-12">
           <SectionLabel>Watch him live</SectionLabel>
-          <h2 className="font-display text-3xl lg:text-4xl text-white mb-8">Real crowds. Real live vocals.</h2>
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white">Real crowds. Real live vocals.</h2>
+            {/* Desktop arrows: mouse users can't swipe the strip */}
+            <div className="hidden lg:flex gap-2 shrink-0">
+              {[
+                ['←', -1, 'Previous videos'],
+                ['→', 1, 'More videos'],
+              ].map(([icon, dir, label]) => (
+                <button
+                  key={label}
+                  type="button"
+                  aria-label={label as string}
+                  onClick={() => reelsRef.current?.scrollBy({ left: (dir as number) * 600, behavior: 'smooth' })}
+                  className="w-11 h-11 border border-border text-white hover:border-amber hover:text-amber transition-colors"
+                >
+                  {icon}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 lg:px-12 pb-4 max-w-6xl mx-auto">
+        <div ref={reelsRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 lg:px-12 pb-4 max-w-6xl mx-auto">
           {REELS.map((r) => <Reel key={r.id} {...r} />)}
         </div>
       </section>
@@ -457,7 +489,7 @@ export function WeddingPage() {
       <section className="pb-16 lg:pb-24">
         <div className="max-w-6xl mx-auto px-5 lg:px-12">
           <SectionLabel>Real weddings</SectionLabel>
-          <h2 className="font-display text-3xl lg:text-4xl text-white mb-8">Where the dance floor fills up</h2>
+          <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white mb-8">Where the dance floor fills up</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
             {[
               [galleryGuest, 'Avish singing with a guest at a wedding'],
@@ -484,11 +516,12 @@ export function WeddingPage() {
           <img src={portrait} alt="Avish, live Bollywood singer" loading="lazy" className="w-full max-w-sm aspect-[3/4] object-cover object-top rounded-sm" />
           <div>
             <SectionLabel>Meet Avish</SectionLabel>
-            <h2 className="font-display text-3xl lg:text-4xl text-white mb-6">From international stages to your sangeet</h2>
+            <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white mb-6">From international stages to your sangeet</h2>
             <div className="space-y-4 text-text-secondary leading-relaxed">
               <p>
-                Avish is a Hindi singer-songwriter and live performer who has played 100+ shows across four continents,
-                including crowds of 20,000+. His music has been featured by Spotify editorial and Rolling Stone India.
+                Avish is an experienced live performer who has played 100+ premium concerts and wedding shows across four
+                continents, including crowds of 20,000+. After having grown up in New Zealand and performed all over the world,
+                he is now based in and available for performances in India.
               </p>
               <p>
                 At weddings he brings the songs everyone knows, from old Bollywood classics to this year’s hits,
@@ -496,7 +529,7 @@ export function WeddingPage() {
               </p>
             </div>
             <p className="mt-8 text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Worked with &amp; featured on</p>
-            <p className="font-display text-white/80 flex flex-wrap gap-x-4 gap-y-1">
+            <p className="font-semibold tracking-tight text-white/80 flex flex-wrap gap-x-4 gap-y-1">
               <span>T-Series</span><span className="text-text-muted">·</span>
               <span>Zee Music Company</span><span className="text-text-muted">·</span>
               <span>Saregama</span><span className="text-text-muted">·</span>
@@ -509,8 +542,8 @@ export function WeddingPage() {
       {/* 4. Events and locations */}
       <section className="py-16 lg:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-5 lg:px-12">
-          <SectionLabel>What we play for</SectionLabel>
-          <h2 className="font-display text-3xl lg:text-4xl text-white mb-10">Every function, one voice</h2>
+          <SectionLabel>Type of events</SectionLabel>
+          <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white mb-10">Custom-tailored set for every occasion</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
             {[
               ['Sangeet', 'High-energy sets that get both families dancing.'],
@@ -519,14 +552,13 @@ export function WeddingPage() {
               ['Cocktail', 'Acoustic and lounge sets for the evening.'],
             ].map(([title, text]) => (
               <div key={title} className="bg-bg-dark p-6 lg:p-8">
-                <p className="font-display text-xl text-white mb-2">{title}</p>
+                <p className="font-semibold tracking-tight text-xl text-white mb-2">{title}</p>
                 <p className="text-sm text-text-muted leading-relaxed">{text}</p>
               </div>
             ))}
           </div>
-          <p className="mt-8 text-text-secondary">
-            <span className="text-white">Available across India:</span> Mumbai, Ahmedabad, Delhi NCR, Jaipur, Udaipur, Jodhpur and destination weddings.
-          </p>
+          <p className="mt-8 text-white">Available across India &amp; abroad</p>
+          <p className="mt-1 text-text-secondary">(Avish is a New Zealand passport holder so visa won’t be an issue!)</p>
         </div>
       </section>
 
@@ -534,11 +566,11 @@ export function WeddingPage() {
       <section className="py-16 lg:py-24 border-t border-border">
         <div className="max-w-6xl mx-auto px-5 lg:px-12">
           <SectionLabel>Pick your setup</SectionLabel>
-          <h2 className="font-display text-3xl lg:text-4xl text-white mb-10">From acoustic to full production</h2>
+          <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white mb-10">From acoustic to full production</h2>
           <div className="grid md:grid-cols-3 gap-4">
             {SET_FORMATS.map((s, i) => (
               <div key={s.name} className={`p-6 lg:p-8 border rounded-sm ${i === 2 ? 'border-amber bg-amber/5' : 'border-border'}`}>
-                <p className="font-display text-xl text-white mb-3">{s.name}</p>
+                <p className="font-semibold tracking-tight text-xl text-white mb-3">{s.name}</p>
                 <p className="text-sm text-text-muted leading-relaxed">{s.detail}</p>
               </div>
             ))}
@@ -552,7 +584,7 @@ export function WeddingPage() {
           <div className="max-w-4xl mx-auto px-5 lg:px-12 text-center">
             {TESTIMONIALS.map((t) => (
               <figure key={t.name}>
-                <blockquote className="font-display text-2xl lg:text-4xl text-white leading-snug">“{t.quote}”</blockquote>
+                <blockquote className="font-semibold tracking-tight text-2xl lg:text-4xl text-white leading-snug">“{t.quote}”</blockquote>
                 <figcaption className="mt-6 text-sm tracking-widest uppercase text-text-muted">
                   {t.name} <span className="text-amber">·</span> {t.role}
                 </figcaption>
@@ -573,8 +605,8 @@ export function WeddingPage() {
               ['Lock your date', 'Confirm with an advance and we plan the set list with you.'],
             ].map(([title, text], i) => (
               <li key={title} className="border-t border-amber pt-5">
-                <p className="font-display text-4xl text-amber/60 mb-3">0{i + 1}</p>
-                <p className="font-display text-xl text-white mb-2">{title}</p>
+                <p className="font-semibold tracking-tight text-4xl text-amber/60 mb-3">0{i + 1}</p>
+                <p className="font-semibold tracking-tight text-xl text-white mb-2">{title}</p>
                 <p className="text-sm text-text-muted leading-relaxed">{text}</p>
               </li>
             ))}
@@ -593,7 +625,7 @@ export function WeddingPage() {
                   {f.q}
                   <span className="text-amber text-xl transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-3 text-text-muted leading-relaxed">{f.a}</p>
+                <div className="mt-3 text-text-muted leading-relaxed">{f.a}</div>
               </details>
             ))}
           </div>
@@ -602,7 +634,7 @@ export function WeddingPage() {
 
       {/* 8. Final CTA */}
       <section className="py-20 lg:py-28 border-t border-border text-center px-5">
-        <h2 className="font-display text-3xl lg:text-5xl text-white mb-4">Wedding dates fill fast this season</h2>
+        <h2 className="font-semibold tracking-tight text-3xl lg:text-5xl text-white mb-4">Wedding dates fill fast this season</h2>
         <p className="text-text-secondary mb-8">Check if yours is free. It takes less than a minute.</p>
         <button type="button" onClick={() => scrollToForm('final_cta')} className={`${buttonClass} max-w-xs`}>
           Check my date
@@ -658,7 +690,7 @@ export function WeddingThankYouPage() {
       <TopBar />
       <div className="max-w-xl mx-auto px-5 py-24 text-center animate-fade-in">
         <p className="text-xs tracking-[0.3em] uppercase text-amber mb-5">Enquiry received</p>
-        <h1 className="font-display text-4xl lg:text-5xl text-white mb-6">Thank you{name ? `, ${name}` : ''}!</h1>
+        <h1 className="font-semibold tracking-tight text-4xl lg:text-5xl text-white mb-6">Thank you{name ? `, ${name}` : ''}!</h1>
         <p className="text-text-secondary text-lg mb-10">
           We’ll message you on WhatsApp {REPLY_TIME} with availability and a quote for your date.
         </p>
@@ -687,7 +719,7 @@ export function PrivacyPage() {
     <div className="min-h-screen bg-bg-dark">
       <div className="max-w-2xl mx-auto px-5 py-20 space-y-5 text-text-secondary leading-relaxed">
         <Link to="/" className="font-display text-xl font-bold tracking-[0.2em] text-white">AVISH</Link>
-        <h1 className="font-display text-3xl text-white pt-6">Privacy policy</h1>
+        <h1 className="font-semibold tracking-tight text-3xl text-white pt-6">Privacy policy</h1>
         <p>
           When you send an enquiry on this website we collect the details you enter (name, WhatsApp number, email,
           event date, location, event type, performance setup and notes). We use them only to reply to your enquiry and to plan

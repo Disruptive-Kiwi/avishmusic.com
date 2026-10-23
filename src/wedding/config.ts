@@ -19,8 +19,8 @@ export const EVENT_TYPES = ['Wedding', 'Sangeet', 'Reception', 'Cocktail', 'Mehe
 
 // "Expected performance requirements" from the brief.
 export const SET_FORMATS = [
-  { name: 'Solo acoustic set', detail: 'Just Avish, live and up close. Ideal for cocktails, mehendi and smaller functions.' },
-  { name: 'Small band (3-piece)', detail: 'Live vocals with two musicians. A fuller sound that still fits any venue.' },
+  { name: 'Solo acoustic set', detail: 'Just Avish, live and up close. Ideal for cocktails, mehendi and smaller functions. Set can have an acoustic vibe or karaokes for a fuller sound, or a mix of both!' },
+  { name: 'Small band (3-piece)', detail: 'Live vocals with two musicians adding a fuller sound and flair that still fits any venue.' },
   { name: 'Full band production (8–10 piece)', detail: 'The complete show for your sangeet or reception, built to fill a big dance floor.' },
 ]
 
@@ -39,11 +39,15 @@ export const CITY_SUGGESTIONS = [
 
 // YouTube Shorts IDs for the "Watch him live" strip. Videos must be Unlisted or Public.
 export const REELS = [
-  { id: '9qTLMy-QglY', title: 'Wo Ladki' },
-  { id: 'SpIK6MPX1gs', title: 'Tabiyat khush ho gayi' },
-  { id: 'h-31opfV-90', title: 'Bang Bang' },
+  { id: 'v0qP9QbNG-o', title: 'Teri Meri Kahaani' },
+  { id: '0prWUt-zoWk', title: 'Chaleya' },
+  { id: 'C2I4ozPeVGs', title: 'Wo Ladki' },
+  { id: 'x4WsyfyM1Sc', title: 'Bang Bang' },
+  { id: 'TyEquIb3eYc', title: 'Teri Deewani' },
+  { id: 'BLMmMnFP-L0', title: 'Teri Deewani' },
+  { id: 'RtVaC4T8G1A', title: 'Chaleya' },
 ]
 
 export const TESTIMONIALS = [
-  { quote: 'One of the best performers I’ve ever seen.', name: 'Sumeet Bagai', role: 'Dream Shaadi' },
+  { quote: 'One of the best performers I’ve ever seen.', name: 'Sumeet Bagai', role: 'Dream Shaadi (US)' },
 ]
