@@ -44,6 +44,8 @@ export const REELS = [
   { id: 'C2I4ozPeVGs', title: 'Wo Ladki' },
   { id: 'x4WsyfyM1Sc', title: 'Bang Bang' },
   { id: 'TyEquIb3eYc', title: 'Teri Deewani' },
+  { id: 'BLMmMnFP-L0', title: 'Teri Deewani' },
+  { id: 'RtVaC4T8G1A', title: 'Chaleya' },
 ]
 
 export const TESTIMONIALS = [

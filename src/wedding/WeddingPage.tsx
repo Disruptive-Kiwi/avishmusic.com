@@ -410,6 +410,7 @@ const faqs: { q: string; a: React.ReactNode }[] = [
 export function WeddingPage() {
   usePageTitle('Avish Live | Live Bollywood Singer for Weddings & Sangeet')
   const heroRef = useRef<HTMLElement>(null)
+  const reelsRef = useRef<HTMLDivElement>(null)
   const [showSticky, setShowSticky] = useState(false)
 
   useEffect(() => {
@@ -458,9 +459,28 @@ export function WeddingPage() {
       <section className="py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-5 lg:px-12">
           <SectionLabel>Watch him live</SectionLabel>
-          <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white mb-8">Real crowds. Real live vocals.</h2>
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <h2 className="font-semibold tracking-tight text-3xl lg:text-4xl text-white">Real crowds. Real live vocals.</h2>
+            {/* Desktop arrows: mouse users can't swipe the strip */}
+            <div className="hidden lg:flex gap-2 shrink-0">
+              {[
+                ['←', -1, 'Previous videos'],
+                ['→', 1, 'More videos'],
+              ].map(([icon, dir, label]) => (
+                <button
+                  key={label}
+                  type="button"
+                  aria-label={label as string}
+                  onClick={() => reelsRef.current?.scrollBy({ left: (dir as number) * 600, behavior: 'smooth' })}
+                  className="w-11 h-11 border border-border text-white hover:border-amber hover:text-amber transition-colors"
+                >
+                  {icon}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 lg:px-12 pb-4 max-w-6xl mx-auto">
+        <div ref={reelsRef} className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 lg:px-12 pb-4 max-w-6xl mx-auto">
           {REELS.map((r) => <Reel key={r.id} {...r} />)}
         </div>
       </section>
