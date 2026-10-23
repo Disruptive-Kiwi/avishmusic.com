@@ -19,8 +19,8 @@ export const EVENT_TYPES = ['Wedding', 'Sangeet', 'Reception', 'Cocktail', 'Mehe
 
 // "Expected performance requirements" from the brief.
 export const SET_FORMATS = [
-  { name: 'Solo acoustic set', detail: 'Just Avish, live and up close. Ideal for cocktails, mehendi and smaller functions.' },
-  { name: 'Small band (3-piece)', detail: 'Live vocals with two musicians. A fuller sound that still fits any venue.' },
+  { name: 'Solo acoustic set', detail: 'Just Avish, live and up close. Ideal for cocktails, mehendi and smaller functions. Set can have an acoustic vibe or karaokes for a fuller sound, or a mix of both!' },
+  { name: 'Small band (3-piece)', detail: 'Live vocals with two musicians adding a fuller sound and flair that still fits any venue.' },
   { name: 'Full band production (8–10 piece)', detail: 'The complete show for your sangeet or reception, built to fill a big dance floor.' },
 ]
 
@@ -45,5 +45,5 @@ export const REELS = [
 ]
 
 export const TESTIMONIALS = [
-  { quote: 'One of the best performers I’ve ever seen.', name: 'Sumeet Bagai', role: 'Dream Shaadi' },
+  { quote: 'One of the best performers I’ve ever seen.', name: 'Sumeet Bagai', role: 'Dream Shaadi (US)' },
 ]
