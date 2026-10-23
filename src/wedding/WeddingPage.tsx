@@ -339,8 +339,11 @@ function Reel({ id, title }: { id: string; title: string }) {
           aria-label={`Play ${title}`}
         >
           <img
-            src={`https://i.ytimg.com/vi/${id}/oardefault.jpg`}
-            onError={(e) => { e.currentTarget.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg` }}
+            src={`https://i.ytimg.com/vi/${id}/oar2.jpg`}
+            onError={(e) => {
+              const fallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+              if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback
+            }}
             alt=""
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"

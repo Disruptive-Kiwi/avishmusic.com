@@ -39,9 +39,11 @@ export const CITY_SUGGESTIONS = [
 
 // YouTube Shorts IDs for the "Watch him live" strip. Videos must be Unlisted or Public.
 export const REELS = [
-  { id: '9qTLMy-QglY', title: 'Wo Ladki' },
-  { id: 'SpIK6MPX1gs', title: 'Tabiyat khush ho gayi' },
-  { id: 'h-31opfV-90', title: 'Bang Bang' },
+  { id: 'v0qP9QbNG-o', title: 'Teri Meri Kahaani' },
+  { id: '0prWUt-zoWk', title: 'Chaleya' },
+  { id: 'C2I4ozPeVGs', title: 'Wo Ladki' },
+  { id: 'x4WsyfyM1Sc', title: 'Bang Bang' },
+  { id: 'TyEquIb3eYc', title: 'Teri Deewani' },
 ]
 
 export const TESTIMONIALS = [
