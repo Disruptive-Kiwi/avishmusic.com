@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import heroImage from '../assets/images/wedding/hero-wedding.webp'
 import portrait from '../assets/images/wedding/portrait-kurta.webp'
 import galleryGuest from '../assets/images/wedding/gallery-guest.webp'
 import galleryCrowd from '../assets/images/wedding/gallery-crowd.webp'
@@ -429,8 +428,7 @@ export function WeddingPage() {
   return (
     <div className="grain-overlay min-h-screen bg-bg-dark">
       {/* 1. Hero + form step 1 */}
-      <section ref={heroRef} className="relative min-h-[100svh] hero-bg" style={{ backgroundImage: `url(${heroImage})`, backgroundPosition: '55% 20%' }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-bg-dark/70 via-bg-dark/80 to-bg-dark lg:bg-gradient-to-r lg:from-bg-dark/95 lg:via-bg-dark/60 lg:to-bg-dark/90" />
+      <section ref={heroRef} className="relative bg-bg-dark">
         <TopBar />
         <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 [@media(max-height:620px)]:pt-16 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
           <div className="animate-fade-in">
