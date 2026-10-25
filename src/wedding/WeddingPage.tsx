@@ -445,7 +445,7 @@ export function WeddingPage() {
               <li><span className="text-amber font-semibold">7M+</span> views</li>
               <li className="hidden sm:list-item">Featured in Rolling Stone India</li>
             </ul>
-            <p className="[@media(max-height:620px)]:hidden max-[360px]:hidden mt-3 sm:mt-4 text-xs sm:text-sm text-text-muted">Destination weddings · Concerts · Private events · Corporate events · College cultural festivals · Community events</p>
+            <p className="[@media(max-height:620px)]:hidden max-[360px]:hidden mt-3 sm:mt-4 text-xs sm:text-sm text-text-muted">Weddings · Concerts · Private events · Corporate events · College festivals</p>
           </div>
           <div className="animate-fade-in [animation-delay:150ms] opacity-0">
             <EnquiryForm />
@@ -556,7 +556,7 @@ export function WeddingPage() {
             ))}
           </div>
           <p className="mt-8 text-white">Available across India &amp; abroad</p>
-          <p className="mt-1 text-text-secondary">(Avish is a New Zealand passport holder so visa won’t be an issue!)</p>
+          <p className="mt-1 text-text-secondary">As a New Zealand passport holder, Avish can travel to most destinations with ease.</p>
         </div>
       </section>
 
