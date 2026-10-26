@@ -154,3 +154,22 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* Date field: iOS Safari sizes it to its content and ignores width, and an
+   empty one collapses. Reset the native look so it matches the other inputs. */
+.date-input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  min-width: 0;
+  min-height: 3.125rem;
+}
+
+.date-input::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+/* While empty, hide the browser's own mm/dd/yyyy so the "Select date" hint shows */
+.date-input.is-empty:not(:focus)::-webkit-datetime-edit {
+  color: transparent;
+}

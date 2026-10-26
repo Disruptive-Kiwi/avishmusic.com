@@ -146,15 +146,23 @@ function EnquiryForm() {
         <form onSubmit={goToStep2} className="space-y-4 sm:space-y-5">
           <div>
             <label htmlFor="eventDate" className={labelClass}>Event date</label>
-            <input
-              id="eventDate"
-              type="date"
-              required
-              min={today}
-              value={form.eventDate}
-              onChange={(e) => set('eventDate', e.target.value)}
-              className={`${inputClass} [color-scheme:dark]`}
-            />
+            <div className="relative">
+              <input
+                id="eventDate"
+                type="date"
+                required
+                min={today}
+                value={form.eventDate}
+                onChange={(e) => set('eventDate', e.target.value)}
+                className={`${inputClass} date-input peer [color-scheme:dark] ${form.eventDate ? '' : 'is-empty'}`}
+              />
+              {/* iOS shows an empty date field as a blank box, so give it a hint */}
+              {!form.eventDate && (
+                <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-muted peer-focus:hidden">
+                  Select date
+                </span>
+              )}
+            </div>
           </div>
           <div>
             <label htmlFor="city" className={labelClass}>Event city / venue</label>
