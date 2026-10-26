@@ -56,8 +56,6 @@ function TopBar() {
 
 type FormState = {
   eventDate: string
-  dateNotFixed: boolean
-  approxMonth: string
   city: string
   eventTypes: string[]
   setFormat: string
@@ -70,8 +68,6 @@ type FormState = {
 
 const emptyForm: FormState = {
   eventDate: '',
-  dateNotFixed: false,
-  approxMonth: '',
   city: '',
   eventTypes: [],
   setFormat: '',
@@ -123,7 +119,7 @@ function EnquiryForm() {
         name: form.name,
         phone,
         email: form.email,
-        event_date: form.dateNotFixed ? `Approx: ${form.approxMonth}` : form.eventDate,
+        event_date: form.eventDate,
         city: form.city,
         event_types: form.eventTypes.join(', '),
         set_format: form.setFormat,
@@ -146,62 +142,19 @@ function EnquiryForm() {
 
   return (
     <div id="enquire" className="bg-bg-card/90 backdrop-blur border border-border rounded-sm p-5 sm:p-8 scroll-mt-6">
-      <div className="mb-4 sm:mb-6">
-        <div className="flex items-start justify-between gap-4">
-          <p className="font-semibold tracking-tight text-base sm:text-lg leading-snug text-white">Check availability for your event</p>
-          <p className="shrink-0 pt-0.5 text-[11px] tracking-widest uppercase text-text-muted">{step}/2</p>
-        </div>
-        {WHATSAPP_NUMBER && (
-          <p className="mt-1 text-sm text-text-muted">
-            Or{' '}
-            <a
-              href={whatsappLink('Hi Avish, I’d like to check availability for my wedding.')}
-              onClick={() => track('whatsapp_click', { location: 'form' })}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber hover:text-amber-light underline underline-offset-2"
-            >
-              WhatsApp us
-            </a>{' '}
-            for an immediate reply
-          </p>
-        )}
-      </div>
-
       {step === 1 ? (
         <form onSubmit={goToStep2} className="space-y-4 sm:space-y-5">
           <div>
             <label htmlFor="eventDate" className={labelClass}>Event date</label>
-            {form.dateNotFixed ? (
-              <input
-                id="eventDate"
-                type="text"
-                required
-                placeholder="Approx. month, e.g. Feb 2027"
-                value={form.approxMonth}
-                onChange={(e) => set('approxMonth', e.target.value)}
-                className={inputClass}
-              />
-            ) : (
-              <input
-                id="eventDate"
-                type="date"
-                required
-                min={today}
-                value={form.eventDate}
-                onChange={(e) => set('eventDate', e.target.value)}
-                className={`${inputClass} [color-scheme:dark]`}
-              />
-            )}
-            <label className="mt-2 flex items-center gap-2 text-sm text-text-muted cursor-pointer">
-              <input
-                type="checkbox"
-                checked={form.dateNotFixed}
-                onChange={(e) => set('dateNotFixed', e.target.checked)}
-                className="accent-amber"
-              />
-              Date not fixed yet
-            </label>
+            <input
+              id="eventDate"
+              type="date"
+              required
+              min={today}
+              value={form.eventDate}
+              onChange={(e) => set('eventDate', e.target.value)}
+              className={`${inputClass} [color-scheme:dark]`}
+            />
           </div>
           <div>
             <label htmlFor="city" className={labelClass}>Event city / venue</label>
@@ -432,7 +385,6 @@ export function WeddingPage() {
         <TopBar />
         <div className="relative z-10 max-w-6xl mx-auto px-5 lg:px-12 pt-20 [@media(max-height:620px)]:pt-16 pb-14 lg:pt-32 grid lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-16 items-center">
           <div className="animate-fade-in">
-            <p className="[@media(max-height:620px)]:hidden text-[11px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-amber mb-3 sm:mb-5">Now taking wedding dates in India</p>
             <h1 className="tracking-tight text-[2rem] max-[360px]:text-[1.75rem] sm:text-5xl lg:text-6xl font-bold leading-[1.08] text-white">
               Live Bollywood <br className="hidden sm:block" />singer for your <span className="text-amber">wedding</span>
             </h1>
@@ -445,7 +397,6 @@ export function WeddingPage() {
               <li><span className="text-amber font-semibold">7M+</span> views</li>
               <li className="hidden sm:list-item">Featured in Rolling Stone India</li>
             </ul>
-            <p className="[@media(max-height:620px)]:hidden max-[360px]:hidden mt-3 sm:mt-4 text-xs sm:text-sm text-text-muted">Weddings · Concerts · Private events · Corporate events · College festivals</p>
           </div>
           <div className="animate-fade-in [animation-delay:150ms] opacity-0">
             <EnquiryForm />
