@@ -5,6 +5,7 @@ import avishPortrait from './assets/images/avish-portrait.jpg'
 import heroImage from './assets/images/hero-live.jpg'
 import { PrivacyPage, WeddingPage, WeddingThankYouPage } from './wedding/WeddingPage'
 import { sendLead, track } from './wedding/tracking'
+import { LiveEnquiryForm } from './LiveEnquiryForm'
 
 // Social links data
 const socials = {
@@ -381,18 +382,23 @@ function LivePage() {
     <PageWrapper>
       <section className="pt-24 pb-16 lg:py-24 px-6 lg:px-12">
         <div className="max-w-3xl animate-fade-in">
-          <p className="text-text-secondary text-lg mb-12">
+          <p className="text-text-secondary text-lg mb-8">
             Experience Avish live - from intimate gatherings to audiences of 20,000+
           </p>
 
+          {/* Testimonial */}
+          <figure className="mb-12 border-l-2 border-amber pl-5">
+            <blockquote className="font-display text-xl md:text-2xl text-white leading-snug">“One of the best performers I’ve ever seen”</blockquote>
+            <figcaption className="mt-3 text-sm tracking-widest uppercase text-text-muted">Sumeet Bagai | Dream Shaadi (US)</figcaption>
+          </figure>
+
           {/* Showreel Video */}
           <div className="mb-16">
-            <p className="text-sm tracking-widest uppercase text-text-muted mb-6">Showreel</p>
             <div className="aspect-video bg-bg-card rounded-sm overflow-hidden">
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/qZ9yeZQC69c?list=PL5biqK8AA-F7QnoPHPfqyv4XFPQvKaaL6"
+                src="https://www.youtube.com/embed/OLfNExe8CrY"
                 title="Avish Live Showreel"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -402,46 +408,22 @@ function LivePage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-16">
+          <div className="grid grid-cols-2 gap-4 md:gap-8 mb-16">
             <div className="bg-bg-card p-6 md:p-8 rounded-sm text-center card-hover border border-border">
               <p className="font-display text-3xl md:text-4xl text-amber mb-2">100+</p>
-              <p className="text-xs md:text-sm tracking-widest uppercase text-text-muted">Shows Performed</p>
+              <p className="text-xs md:text-sm tracking-widest uppercase text-text-muted">Shows Internationally</p>
             </div>
             <div className="bg-bg-card p-6 md:p-8 rounded-sm text-center card-hover border border-border">
-              <p className="font-display text-3xl md:text-4xl text-amber mb-2">20,000+</p>
-              <p className="text-xs md:text-sm tracking-widest uppercase text-text-muted">Largest Audience</p>
-            </div>
-            <div className="bg-bg-card p-6 md:p-8 rounded-sm text-center card-hover border border-border col-span-2 md:col-span-1">
-              <p className="font-display text-3xl md:text-4xl text-amber mb-2">4</p>
-              <p className="text-xs md:text-sm tracking-widest uppercase text-text-muted">Continents</p>
-            </div>
-          </div>
-
-          {/* Event Types */}
-          <div className="mb-16">
-            <p className="text-sm tracking-widest uppercase text-text-muted mb-6">Perfect For</p>
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              {['Weddings & Sangeets', 'Corporate Events', 'Private Parties', 'Festivals', 'Concert Venues', 'Cultural Events'].map((event) => (
-                <div key={event} className="flex items-center gap-3 p-4 bg-bg-card border border-border rounded-sm">
-                  <span className="w-2 h-2 bg-amber rounded-full flex-shrink-0" />
-                  <span className="text-text-secondary text-sm md:text-base">{event}</span>
-                </div>
-              ))}
+              <p className="font-display text-3xl md:text-4xl text-amber mb-2">7M+</p>
+              <p className="text-xs md:text-sm tracking-widest uppercase text-text-muted">Views</p>
             </div>
           </div>
 
           {/* CTA */}
           <div className="text-center bg-bg-card border border-border p-8 md:p-12 rounded-sm">
-            <p className="font-display text-2xl md:text-3xl text-white mb-4">Book Avish for Your Event</p>
-            <p className="text-text-muted mb-8">Bollywood &amp; Indie music for any occasion</p>
-            <Link
-              to={quotePath}
-              onClick={() => track('cta_click', { location: 'live_page' })}
-              className={`${quoteButtonClass} px-8 py-4 text-sm`}
-            >
-              Request a live quote
-            </Link>
-            <p className="mt-6 text-sm text-text-muted">
+            <p id="book" className="font-display text-2xl md:text-3xl text-white mb-8 scroll-mt-24">Book Avish for Your Event</p>
+            <LiveEnquiryForm />
+            <p className="mt-8 text-sm text-text-muted">
               Press, collaborations or other questions?{' '}
               <Link to="/contact" className="text-amber hover:text-amber-light transition-colors">Contact us</Link>
             </p>
