@@ -10,6 +10,7 @@ import {
   CITY_SUGGESTIONS,
   EVENT_TYPES,
   REELS,
+  type ReelItem,
   REPLY_TIME,
   SET_FORMATS,
   TESTIMONIALS,
@@ -103,6 +104,10 @@ function EnquiryForm() {
     e.preventDefault()
     if (form.eventTypes.length === 0) {
       setError('Pick at least one event.')
+      return
+    }
+    if (!form.setFormat) {
+      setError('Pick a performance setup.')
       return
     }
     if (form.phone.replace(/\D/g, '').length < 10) {
@@ -206,14 +211,32 @@ function EnquiryForm() {
               })}
             </div>
           </fieldset>
-          <div>
-            <label htmlFor="setFormat" className={labelClass}>Performance setup</label>
-            <select id="setFormat" required value={form.setFormat} onChange={(e) => set('setFormat', e.target.value)} className={inputClass}>
-              <option value="" disabled>Choose one</option>
-              {SET_FORMATS.map((s) => <option key={s.name}>{s.name}</option>)}
-              <option>Not sure yet, suggest one</option>
-            </select>
-          </div>
+          <fieldset>
+            <legend className={labelClass}>Performance setup</legend>
+            {/* Buttons, not a dropdown: a closed dropdown cuts these labels off on phones. */}
+            <div className="grid gap-2" role="radiogroup">
+              {[...SET_FORMATS.map((s) => s.formLabel), 'Not sure yet, suggest one'].map((label) => {
+                const on = form.setFormat === label
+                return (
+                  <button
+                    type="button"
+                    key={label}
+                    role="radio"
+                    aria-checked={on}
+                    onClick={() => {
+                      set('setFormat', label)
+                      setError('')
+                    }}
+                    className={`px-4 py-3 text-left text-sm border rounded-sm transition-colors ${
+                      on ? 'border-amber bg-amber/15 text-white' : 'border-border text-text-secondary hover:border-text-muted'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                )
+              })}
+            </div>
+          </fieldset>
           <div className="grid sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="name" className={labelClass}>Your name</label>
@@ -275,11 +298,60 @@ function EnquiryForm() {
   )
 }
 
-// YouTube embeds load only on tap, so the page stays fast on mobile data.
-function Reel({ id, title }: { id: string; title: string }) {
-  const [playing, setPlaying] = useState(false)
+const playIcon = (
+  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-amber/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+    <svg className="w-6 h-6 ml-1 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+  </span>
+)
+
+function ReelCover({ src, title, badge }: { src: string; title: string; badge?: string }) {
   return (
-    <div className="relative aspect-[9/16] w-[70vw] max-w-[280px] shrink-0 snap-center overflow-hidden rounded-sm border border-border bg-bg-card">
+    <>
+      <img
+        src={src}
+        onError={(e) => {
+          if (badge) return
+          const fallback = src.replace('oar2.jpg', 'hqdefault.jpg')
+          if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback
+        }}
+        alt=""
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+      />
+      <span className="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-transparent" />
+      {playIcon}
+      {badge && (
+        <span className="absolute top-3 right-3 px-2 py-1 text-[10px] tracking-widest uppercase bg-bg-dark/70 text-white rounded-sm">{badge}</span>
+      )}
+      <span className="absolute bottom-4 left-4 right-4 text-left font-semibold tracking-tight text-white">{title}</span>
+    </>
+  )
+}
+
+// YouTube embeds load only on tap, so the page stays fast on mobile data.
+// Instagram reels open on Instagram (its inline player doesn't fit the card).
+function Reel({ id, title, instagramCover }: ReelItem) {
+  const [playing, setPlaying] = useState(false)
+  const cardClass =
+    'relative aspect-[9/16] w-[70vw] max-w-[280px] shrink-0 snap-center overflow-hidden rounded-sm border border-border bg-bg-card'
+
+  if (instagramCover) {
+    return (
+      <a
+        href={`https://www.instagram.com/reel/${id}/`}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => track('video_play', { video_id: id, video_title: title, platform: 'instagram' })}
+        className={`group block ${cardClass}`}
+        aria-label={`Watch ${title} on Instagram`}
+      >
+        <ReelCover src={instagramCover} title={title} badge="Instagram" />
+      </a>
+    )
+  }
+
+  return (
+    <div className={cardClass}>
       {playing ? (
         <iframe
           src={`https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0`}
@@ -298,21 +370,7 @@ function Reel({ id, title }: { id: string; title: string }) {
           className="group absolute inset-0 w-full h-full"
           aria-label={`Play ${title}`}
         >
-          <img
-            src={`https://i.ytimg.com/vi/${id}/oar2.jpg`}
-            onError={(e) => {
-              const fallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
-              if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback
-            }}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-          />
-          <span className="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-transparent" />
-          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-amber/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <svg className="w-6 h-6 ml-1 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-          </span>
-          <span className="absolute bottom-4 left-4 right-4 text-left font-semibold tracking-tight text-white">{title}</span>
+          <ReelCover src={`https://i.ytimg.com/vi/${id}/oar2.jpg`} title={title} />
         </button>
       )}
     </div>
